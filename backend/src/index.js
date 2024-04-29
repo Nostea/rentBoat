@@ -38,6 +38,7 @@ app.get("/api/v1/boats/:boatId", (req, res) => {
 //*! post new boat
 app.post("/api/v1/boats", (req, res) => {
   const newBoat = req.body;
+  console.log(newBoat);
   Boats.create(newBoat)
     .then((addedBoat) => res.json(addedBoat || {}))
     .catch((err) => {
@@ -88,9 +89,7 @@ app.get("/api/v1/reservations/:reservationId", (req, res) => {
     .then((foundreservation) => res.json(foundreservation || {}))
     .catch((err) => {
       console.log(err);
-      res
-        .status(500)
-        .json({ err, message: "could not find reservation" + reservationId });
+      res.status(500).json({ err, message: "could not find reservation" + reservationId });
     });
 });
 
@@ -114,9 +113,7 @@ app.patch("/api/v1/reservations/:reservationId", (req, res) => {
     .then((updatedReservation) => res.json(updatedReservation || {}))
     .catch((err) => {
       console.log(err);
-      res
-        .status(500)
-        .json({ err, message: "could not update the reservation" });
+      res.status(500).json({ err, message: "could not update the reservation" });
     });
 });
 
@@ -127,9 +124,7 @@ app.delete("/api/v1/reservations/:reservationId", (req, res) => {
     .then((deletedreservation) => res.json(deletedreservation || {}))
     .catch((err) => {
       console.log(err);
-      res
-        .status(500)
-        .json({ err, message: "could not delete the reservation" });
+      res.status(500).json({ err, message: "could not delete the reservation" });
     });
 });
 
@@ -137,9 +132,7 @@ app.delete("/api/v1/reservations/:reservationId", (req, res) => {
 connectToDb()
   .then(() => {
     const PORT = 8080;
-    app.listen(PORT, () =>
-      console.log(`Server ready at http://localhost:${PORT}`)
-    );
+    app.listen(PORT, () => console.log(`Server ready at http://localhost:${PORT}`));
   })
   .catch((err) => {
     console.log(err);
