@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 const boatSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    year: { type: Number, required: true },
 
     serialnumber: { type: String, required: true },
     material: { type: String, required: true },
