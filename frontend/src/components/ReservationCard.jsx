@@ -10,7 +10,8 @@ const ReservationCard = ({
   reservations,
   setReservations,
 }) => {
-  const editReservation = () => {
+  const editReservation = (e) => {
+    e.preventDefault();
     if (new Date() > startDate || startDate > endDate) {
       return console.log("please give a valid date");
     }
