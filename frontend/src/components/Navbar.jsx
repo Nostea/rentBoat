@@ -6,7 +6,7 @@ import AddBoatIcon from "./icons/AddBoatIcon";
 const Navbar = () => {
   return (
     <>
-      <div className=" text-sm bg-skyblue flex flex-col w-20 h-screen py-8 px-2 fixed">
+      <div className=" text-sm bg-skyblue flex flex-col justify-center w-20 h-screen py-8 px-2 fixed">
         <NavLink to={"/"}>
           <div className="flex flex-col justify-center content-center pb-8">
             <BoatLogoIcon />

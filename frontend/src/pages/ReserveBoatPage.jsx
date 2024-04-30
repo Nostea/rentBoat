@@ -24,7 +24,7 @@ const ReserveBoatPage = () => {
         <ReservationBoatForm />
       </div>
       <h2 className=" pl-32 pb-4 text-2xl font-bold">Current Reservations</h2>
-      <div className="pl-32 pr-4 pb-8 grid grid-cols-1 gap-2">
+      <div className="pl-32 pr-4 pb-8 grid grid-cols-1 gap-2 w-2/3">
         {reservation.map((reservationItem) => (
           <ReservationCard
             startDate={reservationItem.startDate}
