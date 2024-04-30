@@ -23,7 +23,7 @@ const ReserveBoatPage = () => {
       <div className="py-8 pl-32 pr-4 pb-8">
         <ReservationBoatForm />
       </div>
-      <h2 className="py-8 pl-32 pb-2">Current Reservations</h2>
+      <h2 className=" pl-32 pb-4 text-2xl font-bold">Current Reservations</h2>
       <div className="pl-32 pr-4 pb-8 grid grid-cols-1 gap-2">
         {reservation.map((reservationItem) => (
           <ReservationCard
