@@ -29,8 +29,13 @@ const ReservationCard = ({
     })
       .then((res) => res.json())
       .then((editedReservation) => {
-        setReservations(updateReservation);
-      });
+        const filter = reservations.filter(
+          (singleRes) => singleRes._id !== editedReservation._id
+        );
+
+        setReservations([editedReservation, ...filter]);
+      })
+      .catch((err) => console.log(err));
   };
 
   const deleteReservation = () => {
