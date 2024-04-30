@@ -26,7 +26,15 @@ const ReserveBoatPage = () => {
       <h2 className="py-8 pl-32 pb-2">Current Reservations</h2>
       <div className="pl-32 pr-4 pb-8 grid grid-cols-1 gap-2">
         {reservation.map((reservationItem) => (
-          <ReservationCard startDate={reservationItem.startDate} endDate={reservationItem.endDate} name={reservationItem.name} key={reservationItem._id} />
+          <ReservationCard
+            startDate={reservationItem.startDate}
+            endDate={reservationItem.endDate}
+            name={reservationItem.name}
+            key={reservationItem._id}
+            setReservations={setReservation}
+            reservationId={reservationItem._id}
+            reservations={reservation}
+          />
         ))}
       </div>
 

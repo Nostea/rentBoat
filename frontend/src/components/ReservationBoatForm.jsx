@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { backendUrl } from "../api/api";
+import { useParams } from "react-router-dom";
 
 const ReservationBoatForm = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [name, setName] = useState("");
+
+  const { boatId } = useParams();
 
   const reserveBoat = (e) => {
     e.preventDefault();
@@ -20,6 +23,7 @@ const ReservationBoatForm = () => {
       startDate: startDate,
       endDate: endDate,
       name: name,
+      boatId: boatId,
     };
 
     fetch(`${backendUrl}/api/v1/reservations`, {
@@ -47,9 +51,27 @@ const ReservationBoatForm = () => {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
-        <input type="text" name="endDate" id="endDate" placeholder="end date DD/MM/YYYY" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-        <input type="text" name="name" id="name" placeholder="ship name" value={name} onChange={(e) => setName(e.target.value)} />
-        <button type="button" className="bg-cyan px-4 py-2 rounded-lg hover:bg-skyblue" onClick={reserveBoat}>
+        <input
+          type="text"
+          name="endDate"
+          id="endDate"
+          placeholder="end date DD/MM/YYYY"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="ship name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <button
+          type="button"
+          className="bg-cyan px-4 py-2 rounded-lg hover:bg-skyblue"
+          onClick={reserveBoat}
+        >
           Submit
         </button>
       </form>
