@@ -2,8 +2,10 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { connectToDb } from "./models/indexConnect.js";
-import { Boats } from "./models/Boats.js";
-import { Reservations } from "./models/Reservations.js";
+/* import { Boats } from "./models/Boats.js";
+import { Reservations } from "./models/Reservations.js"; */
+import { BoatsService } from "./service/indexService.js";
+import { ReservationsService } from "./service/indexService.js";
 
 // * Middlewares
 const app = express();
@@ -17,7 +19,7 @@ app.get("/", (req, res) => {
 
 //*!get all boats
 app.get("/api/v1/boats", (req, res) => {
-  Boats.find({})
+  BoatsService.showAllBoats()
     .then((boats) => res.json(boats))
     .catch((err) => {
       res.status(500).json({ err, message: "Could not GET all boats" });
@@ -27,7 +29,7 @@ app.get("/api/v1/boats", (req, res) => {
 //*!get one boat by ID
 app.get("/api/v1/boats/:boatId", (req, res) => {
   const boatId = req.params.boatId;
-  Boats.findById(boatId)
+  BoatsService.showBoatDetail(boatId)
     .then((foundBoat) => res.json(foundBoat || {}))
     .catch((err) => {
       console.log(err);
@@ -39,7 +41,7 @@ app.get("/api/v1/boats/:boatId", (req, res) => {
 app.post("/api/v1/boats", (req, res) => {
   const newBoat = req.body;
   console.log(newBoat);
-  Boats.create(newBoat)
+  BoatsService.addBoats(newBoat)
     .then((addedBoat) => res.json(addedBoat || {}))
     .catch((err) => {
       console.log(err);
@@ -52,7 +54,7 @@ app.patch("/api/v1/boats/:boatId", (req, res) => {
   const boatId = req.params.boatId;
   const updateInfo = req.body;
 
-  Boats.findByIdAndUpdate(boatId, updateInfo, { new: true })
+  BoatsService.editBoat(boatId, updateInfo, { new: true })
     .then((updatedBoat) => res.json(updatedBoat || {}))
     .catch((err) => {
       console.log(err);
@@ -63,7 +65,7 @@ app.patch("/api/v1/boats/:boatId", (req, res) => {
 //*! delete boat by Id
 app.delete("/api/v1/boats/:boatId", (req, res) => {
   const boatId = req.params.boatId;
-  Boats.findByIdAndDelete(boatId)
+  BoatsService.removeBoats(boatId)
     .then((deletedBoat) => res.json(deletedBoat || {}))
     .catch((err) => {
       console.log(err);
@@ -71,7 +73,7 @@ app.delete("/api/v1/boats/:boatId", (req, res) => {
     });
 });
 
-// ** Reservation Routes
+// ** Reservation Routes ///without Layer Architecture
 
 //*! get all Reservations
 app.get("/api/v1/reservations", (req, res) => {
@@ -89,7 +91,9 @@ app.get("/api/v1/reservations/:reservationId", (req, res) => {
     .then((foundreservation) => res.json(foundreservation || {}))
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ err, message: "could not find reservation" + reservationId });
+      res
+        .status(500)
+        .json({ err, message: "could not find reservation" + reservationId });
     });
 });
 
@@ -113,7 +117,9 @@ app.patch("/api/v1/reservations/:reservationId", (req, res) => {
     .then((updatedReservation) => res.json(updatedReservation || {}))
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ err, message: "could not update the reservation" });
+      res
+        .status(500)
+        .json({ err, message: "could not update the reservation" });
     });
 });
 
@@ -124,7 +130,9 @@ app.delete("/api/v1/reservations/:reservationId", (req, res) => {
     .then((deletedreservation) => res.json(deletedreservation || {}))
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ err, message: "could not delete the reservation" });
+      res
+        .status(500)
+        .json({ err, message: "could not delete the reservation" });
     });
 });
 
@@ -132,7 +140,9 @@ app.delete("/api/v1/reservations/:reservationId", (req, res) => {
 connectToDb()
   .then(() => {
     const PORT = 8080;
-    app.listen(PORT, () => console.log(`Server ready at http://localhost:${PORT}`));
+    app.listen(PORT, () =>
+      console.log(`Server ready at http://localhost:${PORT}`)
+    );
   })
   .catch((err) => {
     console.log(err);
