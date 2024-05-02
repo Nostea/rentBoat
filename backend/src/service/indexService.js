@@ -1,11 +1,13 @@
-import { addBoats } from "./addBoat";
-import { addReservation } from "./addReservation";
-import { editBoat } from "./editBoat";
-import { editReservation } from "./editReservation";
-import { removeBoats } from "./removeBoat";
-import { showAllBoats } from "./showAllBoats";
-import { showAllReservations } from "./showAllReservations";
-import { showBoatDetail } from "./showBoatDetail";
+import { addBoats } from "./addBoat.js";
+import { addReservation } from "./addReservation.js";
+import { editBoat } from "./editBoat.js";
+import { editReservation } from "./editReservation.js";
+import { removeBoats } from "./removeBoat.js";
+import { removeReservation } from "./removeReservation.js";
+import { showAllBoats } from "./showAllBoats.js";
+import { showAllReservations } from "./showAllReservations.js";
+import { showBoatDetail } from "./showBoatDetail.js";
+import { showReservationDetail } from "./showReservationDetail.js";
 
 //BoatsService mit den service func zu den Boats
 export const BoatsService = {
@@ -22,4 +24,6 @@ export const ReservationsService = {
   showAllReservations,
   addReservation,
   editReservation,
+  showReservationDetail,
+  removeReservation,
 };

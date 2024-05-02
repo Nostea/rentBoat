@@ -77,7 +77,7 @@ app.delete("/api/v1/boats/:boatId", (req, res) => {
 
 //*! get all Reservations
 app.get("/api/v1/reservations", (req, res) => {
-  Reservations.find({})
+  ReservationsService.showAllReservations()
     .then((reservation) => res.json(reservation))
     .catch((err) => {
       res.status(500).json({ err, message: "Could not GET all reservations" });
@@ -87,7 +87,7 @@ app.get("/api/v1/reservations", (req, res) => {
 //*!get one reservation by ID
 app.get("/api/v1/reservations/:reservationId", (req, res) => {
   const reservationId = req.params.reservationId;
-  Reservations.findById(reservationId)
+  ReservationsService.showReservationDetail(reservationId)
     .then((foundreservation) => res.json(foundreservation || {}))
     .catch((err) => {
       console.log(err);
@@ -100,7 +100,7 @@ app.get("/api/v1/reservations/:reservationId", (req, res) => {
 //*! post a new  Reservation
 app.post("/api/v1/reservations", (req, res) => {
   const newReservation = req.body;
-  Reservations.create(newReservation)
+  ReservationsService.addReservation(newReservation)
     .then((addedReservation) => res.json(addedReservation || {}))
     .catch((err) => {
       console.log(err);
@@ -113,7 +113,7 @@ app.patch("/api/v1/reservations/:reservationId", (req, res) => {
   const reservationId = req.params.reservationId;
   const updateInfo = req.body;
 
-  Reservations.findByIdAndUpdate(reservationId, updateInfo, { new: true })
+  ReservationsService.editReservation(reservationId, updateInfo, { new: true })
     .then((updatedReservation) => res.json(updatedReservation || {}))
     .catch((err) => {
       console.log(err);
@@ -126,7 +126,7 @@ app.patch("/api/v1/reservations/:reservationId", (req, res) => {
 //*! delete reservation by Id
 app.delete("/api/v1/reservations/:reservationId", (req, res) => {
   const reservationId = req.params.reservationId;
-  Reservations.findByIdAndDelete(reservationId)
+  ReservationsService.removeReservation(reservationId)
     .then((deletedreservation) => res.json(deletedreservation || {}))
     .catch((err) => {
       console.log(err);
