@@ -10,8 +10,7 @@ const ReservationCard = ({
   reservations,
   setReservations,
 }) => {
-  const editReservation = (e) => {
-    e.preventDefault();
+  const editReservation = () => {
     if (new Date() > startDate || startDate > endDate) {
       return console.log("please give a valid date");
     }
@@ -30,13 +29,8 @@ const ReservationCard = ({
     })
       .then((res) => res.json())
       .then((editedReservation) => {
-        const filter = reservations.filter(
-          (singleRes) => singleRes._id !== editedReservation._id
-        );
-
-        setReservations([editedReservation, ...filter]);
-      })
-      .catch((err) => console.log(err));
+        setReservations(updateReservation);
+      });
   };
 
   const deleteReservation = () => {
@@ -55,17 +49,17 @@ const ReservationCard = ({
   };
 
   return (
-    <article className=" bg-white flex flex-col">
-      <div className="flex flex-row justify-between pb-4">
+    <article className=" bg-white flex flex-col p-6">
+      <div className="flex flex-row justify-between pb-4 border-b-2 border-lightpink">
         <p>Start Date</p> <p>{`${startDate}`}</p>
       </div>
-      <div className="flex flex-row justify-between pb-4">
+      <div className="flex flex-row justify-between pb-4 border-b-2 border-lightpink">
         <p>End Date</p> <p>{`${endDate}`}</p>
       </div>
-      <div className="flex flex-row justify-between pb-4">
+      <div className="flex flex-row justify-between pb-4 border-b-2 border-lightpink">
         <p>Boat Name</p> <p>{`${name}`}</p>
       </div>
-      <div>
+      <div className="py-4">
         {" "}
         <button
           type="button"
